@@ -1,6 +1,8 @@
 import re
 from typing import Callable
 
+from challenges.utils import todays_file
+
 pattern = re.compile(r'(\d+)-(\d+)\s+(\w):\s(\w+)')
 
 
@@ -17,7 +19,7 @@ def validation2(min_num: str, max_num: str, req_char: str, password: str) -> boo
 
 
 def main(validation: Callable) -> int:
-	with open('../inputs/day2.txt', 'r') as file:
+	with todays_file(2) as file:
 		count = 0
 		for line in file:
 			min_num, max_num, req_char, password = re.match(pattern, line).groups()

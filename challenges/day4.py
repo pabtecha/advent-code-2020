@@ -1,6 +1,8 @@
 import re
 from typing import Generator, Dict
 
+from challenges.utils import todays_file
+
 HAIR_COLOR_PATTERN = re.compile(r'#[\d a-f]{6}$')
 PID_PATTERN = re.compile(r'^\d{9}$')
 EYE_COLORS = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
@@ -30,7 +32,7 @@ def between_values(lower: int, value: str, upper: int) -> bool:
 
 
 def get_passports() -> Generator[Dict[str, str], None, None]:
-    with open('../inputs/day4.txt', 'r', newline='\n') as file:
+    with todays_file(4) as file:
         for line in file.read().split('\n\n'):
             passport = {}
 

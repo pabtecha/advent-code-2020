@@ -1,8 +1,10 @@
 from typing import List
 
+from challenges.utils import todays_file
+
 
 def get_expenses() -> List[int]:
-	with open('../inputs/day1.txt', 'r') as file:
+	with todays_file(1) as file:
 		return [int(expense) for expense in file]
 
 

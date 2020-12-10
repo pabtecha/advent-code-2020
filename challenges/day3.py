@@ -2,6 +2,7 @@ import math
 from dataclasses import dataclass
 from typing import List
 
+from challenges.utils import todays_file
 
 TREE_CHAR = '#'
 
@@ -14,7 +15,7 @@ class Slope:
 
 def get_map() -> List[List[str]]:
     _map = []
-    with open('../inputs/day3.txt', 'r') as file:
+    with todays_file(3) as file:
         for row in file:
             _map.append(row)
     return _map
@@ -33,7 +34,6 @@ def count_trees(slope: Slope):
     current_position = 0
     trees = crashes_tree(start_row[current_position])
     for row in problem_map[slope.y::slope.y]:
-        print(row)
         current_position = (current_position + slope.x) % repetition_length
         trees += crashes_tree(row[current_position])
 
@@ -41,11 +41,14 @@ def count_trees(slope: Slope):
 
 
 def main(slopes: List[Slope]) -> int:
-    counts = [count_trees(slope) for slope in slopes]
-    print(counts)
-    return math.prod(counts)
+    return math.prod(count_trees(slope) for slope in slopes)
 
 
 if __name__ == '__main__':
-    slopes = [Slope(1, 1), Slope(3, 1), Slope(5, 1), Slope(7, 1), Slope(1, 2)]
-    print(main(slopes))
+    # part 1
+    slopes = [Slope(3, 1)]
+    print(main(slopes=slopes))
+
+    # part 2
+    part2 = [Slope(1, 1), Slope(3, 1), Slope(5, 1), Slope(7, 1), Slope(1, 2)]
+    print(main(part2))
